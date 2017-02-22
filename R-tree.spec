@@ -4,31 +4,54 @@
 #
 Name     : R-tree
 Version  : 1.0
-Release  : 24
-URL      : http://cran.r-project.org/src/contrib/tree_1.0-35.tar.gz
-Source0  : http://cran.r-project.org/src/contrib/tree_1.0-35.tar.gz
-Summary  : No detailed summary available
+Release  : 25
+URL      : http://cran.r-project.org/src/contrib/tree_1.0-37.tar.gz
+Source0  : http://cran.r-project.org/src/contrib/tree_1.0-37.tar.gz
+Summary  : Classification and Regression Trees
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0
+Requires: R-tree-lib
 BuildRequires : clr-R-helpers
 
 %description
 No detailed description available
 
+%package lib
+Summary: lib components for the R-tree package.
+Group: Libraries
+
+%description lib
+lib components for the R-tree package.
+
+
 %prep
 %setup -q -c -n tree
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1487769816
 
 %install
 rm -rf %{buildroot}
+export SOURCE_DATE_EPOCH=1487769816
 export LANG=C
+export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
-R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library tree
+R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library tree
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
+export LANG=C
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-codoc -l %{buildroot}/usr/lib64/R/library tree
+R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library tree
 
 
 %files
@@ -52,8 +75,11 @@ R CMD check --no-manual --no-codoc -l %{buildroot}/usr/lib64/R/library tree
 /usr/lib64/R/library/tree/html/00Index.html
 /usr/lib64/R/library/tree/html/R.css
 /usr/lib64/R/library/tree/libs/symbols.rds
-/usr/lib64/R/library/tree/libs/tree.so
 /usr/lib64/R/library/tree/po/en@quot/LC_MESSAGES/R-tree.mo
 /usr/lib64/R/library/tree/po/en@quot/LC_MESSAGES/tree.mo
 /usr/lib64/R/library/tree/po/pl/LC_MESSAGES/R-tree.mo
 /usr/lib64/R/library/tree/po/pl/LC_MESSAGES/tree.mo
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/R/library/tree/libs/tree.so
