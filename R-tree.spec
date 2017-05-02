@@ -4,7 +4,7 @@
 #
 Name     : R-tree
 Version  : 1.0.37
-Release  : 29
+Release  : 30
 URL      : http://cran.r-project.org/src/contrib/tree_1.0-37.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/tree_1.0-37.tar.gz
 Summary  : Classification and Regression Trees
