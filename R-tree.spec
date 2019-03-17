@@ -4,14 +4,14 @@
 #
 Name     : R-tree
 Version  : 1.0.39
-Release  : 53
+Release  : 54
 URL      : https://cran.r-project.org/src/contrib/tree_1.0-39.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/tree_1.0-39.tar.gz
 Summary  : Classification and Regression Trees
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0
-Requires: R-tree-lib
-BuildRequires : clr-R-helpers
+Requires: R-tree-lib = %{version}-%{release}
+BuildRequires : buildreq-R
 
 %description
 No detailed description available
@@ -32,11 +32,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522161556
+export SOURCE_DATE_EPOCH=1552802283
 
 %install
+export SOURCE_DATE_EPOCH=1552802283
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1522161556
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -71,8 +71,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library tree|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  tree || :
 
 
 %files
@@ -96,11 +95,14 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/tree/help/tree.rdx
 /usr/lib64/R/library/tree/html/00Index.html
 /usr/lib64/R/library/tree/html/R.css
-/usr/lib64/R/library/tree/libs/symbols.rds
 /usr/lib64/R/library/tree/po/en@quot/LC_MESSAGES/R-tree.mo
 /usr/lib64/R/library/tree/po/en@quot/LC_MESSAGES/tree.mo
 /usr/lib64/R/library/tree/po/pl/LC_MESSAGES/R-tree.mo
 /usr/lib64/R/library/tree/po/pl/LC_MESSAGES/tree.mo
+/usr/lib64/R/library/tree/tests/Examples/tree-Ex.Rout.save
+/usr/lib64/R/library/tree/tests/cv.tree.R
+/usr/lib64/R/library/tree/tests/deparse.R
+/usr/lib64/R/library/tree/tests/no_obs.R
 
 %files lib
 %defattr(-,root,root,-)
