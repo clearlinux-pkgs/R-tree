@@ -4,7 +4,7 @@
 #
 Name     : R-tree
 Version  : 1.0.43
-Release  : 85
+Release  : 86
 URL      : https://cran.r-project.org/src/contrib/tree_1.0-43.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/tree_1.0-43.tar.gz
 Summary  : Classification and Regression Trees
@@ -13,9 +13,6 @@ License  : GPL-2.0 GPL-3.0
 Requires: R-tree-lib = %{version}-%{release}
 Requires: R-tree-license = %{version}-%{release}
 BuildRequires : buildreq-R
-# Suppress stripping binaries
-%define __strip /bin/true
-%define debug_package %{nil}
 
 %description
 No detailed description available
@@ -46,10 +43,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1675639402
+export SOURCE_DATE_EPOCH=1678827837
 
 %install
-export SOURCE_DATE_EPOCH=1675639402
+export SOURCE_DATE_EPOCH=1678827837
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/R-tree
 cp %{_builddir}/tree/LICENCE.note %{buildroot}/usr/share/package-licenses/R-tree/6b59368936d345ffa2de56ddc5c3fa97539f09c9 || :
